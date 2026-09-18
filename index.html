@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  DASMANN — лендинг для оптовых продаж джинсовой одежды
+
+  ПЕРЕД ЗАПУСКОМ ЗАМЕНИТЕ ДАННЫЕ В БЛОКЕ CONFIG (в самом низу файла,
+  в начале тега <script>). Там телефон, почта, WhatsApp, Telegram
+  и адрес приёма заявок.
+
+  ЧТО ЕЩЁ ОБЯЗАТЕЛЬНО ПРОВЕРИТЬ С ИРИНОЙ (сейчас это правдоподобные
+  заготовки, а не реальные данные компании):
+    • цены и РРЦ во всех карточках каталога
+    • цифры в блоке «Ваша выгода» и в счётчиках
+    • все ответы в блоке FAQ — особенно про НДС, возврат и сроки
+    • отзывы партнёров — заменить на настоящие
+    • фотографии — заменить стоковые на реальную съёмку производства
+  ═══════════════════════════════════════════════════════════════════
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+  Защита от встраивания в чужой фрейм (кликджекинг): GitHub Pages не умеет
+  отдавать HTTP-заголовок X-Frame-Options, а директива CSP frame-ancestors
+  по спецификации работает только через заголовок и всегда игнорируется,
+  если пришла через <meta> — поэтому на статичном хостинге без заголовков
+  единственный рабочий вариант — разорвать чужой фрейм скриптом. Работает
+  даже при попытке встроить сайт с другого домена: браузеры разрешают менять
+  window.top.location из iframe даже без права читать его текущий адрес.
+-->
+<script>if (window.top !== window.self) { window.top.location = window.self.location.href; }</script>
+
+<!-- Демонстрационный проект для портфолио: из поиска закрыт, доступен только по прямой ссылке -->
+<meta name="robots" content="noindex, nofollow">
+
+<!--
+  Политика безопасности: разрешаем только те внешние адреса, которые реально нужны.
+  Это блокирует подгрузку чужих скриптов, если кто-то попытается внедрить их в страницу.
+
+  Сайт размещён на GitHub Pages — там нельзя настроить свои HTTP-заголовки,
+  поэтому эта политика задана единственным доступным способом — тегом <meta>
+  прямо здесь. Она реально работает (проверяется в консоли браузера при
+  попытке загрузить что-то постороннее), но у такого способа есть предел:
+  директива frame-ancestors через <meta> не действует никогда, поэтому
+  защита от чужих фреймов сделана отдельным скриптом чуть выше.
+
+  Если будете подключать Яндекс Метрику, допишите https://mc.yandex.ru
+  в script-src, connect-src и img-src.
+  Если включите реальный приём заявок — добавьте туда же адрес сервиса форм.
+
+  Файл _headers-netlify-reference.txt рядом с этим файлом — не рабочий
+  конфиг, а просто памятка: если сайт когда-нибудь переедет на хостинг,
+  который умеет отдавать свои заголовки (Netlify, Cloudflare Pages), там
+  можно будет включить более полную защиту — X-Frame-Options, nosniff,
+  Permissions-Policy и HSTS, — которую GitHub Pages технически не поддержит.
+-->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  img-src 'self' https://images.unsplash.com data:;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  script-src 'self' 'unsafe-inline';
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  object-src 'none'
+">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>DASMANN — джинсовая одежда оптом от производителя. Опт от 50 единиц</title>
+<meta name="description" content="Производим джинсовую одежду под собственной маркой DASMANN. Опт от 50 единиц со свободным миксом, наценка розницы 150–200%, отгрузка за 3 дня. Работаем с маркировкой «Честный знак», НДС и ЭДО. Поставки по России, СНГ и на экспорт.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="DASMANN — джинсовая одежда оптом от производителя">
+<meta property="og:description" content="Опт от 50 единиц со свободным миксом. Наценка розницы 150–200%, отгрузка за 3 дня, маркировка «Честный знак». Прайс с РРЦ — за один рабочий день.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1721637286605-ae9be19d681f?q=80&w=1200&auto=format&fit=crop">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="DASMANN">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231e2a44'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' fill='%23f6f3ed' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700;800&family=Cormorant:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #f6f3ed;
+    --cream-deep: #efe9df;
+    --ink: #1c2233;
+    --indigo: #2b3a5c;
+    --indigo-deep: #1e2a44;
+    --tan: #a67c52;
+    --tan-deep: #8f6844;
+    --green: #2f6b52;
+    --line: rgba(28, 34, 51, 0.12);
+    --line-soft: rgba(28, 34, 51, 0.07);
+    --font-display: 'Prata', Georgia, serif;
+    --font-body: 'Manrope', system-ui, sans-serif;
+    --font-accent: 'Cormorant', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+  body {
+    font-family: var(--font-body);
+    background:
+      radial-gradient(1200px 600px at 85% -5%, rgba(43, 58, 92, 0.07), transparent 60%),
+      linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    z-index: 1; pointer-events: none;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  :focus-visible { outline: 2px solid var(--tan); outline-offset: 3px; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  /* Надзаголовок с фирменной «отстрочкой» — мотив контрастного шва на дениме */
+  .label {
+    display: block;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--tan);
+  }
+  .label::after {
+    content: ""; display: block;
+    width: 44px; margin-top: 9px;
+    border-top: 2px dashed var(--tan);
+    opacity: 0.7;
+  }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(246, 243, 237, 0.86);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow 0.3s ease;
+  }
+  .nav.scrolled { box-shadow: 0 6px 30px rgba(28, 34, 51, 0.07); }
+
+  .nav-inner {
+    display: flex; align-items: center; gap: 28px;
+    padding: 14px 32px; max-width: 1400px; margin: 0 auto;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 23px; letter-spacing: 0.26em;
+    color: var(--ink); white-space: nowrap;
+  }
+  .logo span { color: var(--tan); }
+
+  .nav-links { display: flex; gap: 26px; margin-left: auto; }
+  .nav-links a {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: rgba(28, 34, 51, 0.75);
+    position: relative; padding: 4px 0; white-space: nowrap;
+    transition: color 0.25s ease;
+  }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px; background: var(--tan);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-side { display: flex; align-items: center; gap: 16px; }
+
+  .nav-phone {
+    font-size: 15px; font-weight: 700; letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .nav-phone small {
+    display: block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(28, 34, 51, 0.45);
+  }
+
+  .burger {
+    display: none; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px;
+  }
+  .burger span {
+    width: 22px; height: 1.5px; background: var(--ink);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* mobile menu */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 99;
+    background: var(--cream);
+    padding: 96px 28px 40px;
+    display: flex; flex-direction: column; gap: 4px;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+  }
+  .mobile-menu.open { transform: translateY(0); }
+  .mobile-menu a.mm-link {
+    font-family: var(--font-display);
+    font-size: 24px; padding: 12px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .mm-foot { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* ============ BUTTONS ============ */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 9px; padding: 16px 32px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    cursor: pointer; border: 1px solid transparent;
+    transition: all 0.3s ease; text-align: center;
+  }
+  .btn-sm { padding: 12px 22px; font-size: 11px; }
+
+  .btn-dark { background: var(--indigo-deep); color: #f9f6f0; }
+  .btn-dark:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 16px 34px rgba(30, 42, 68, 0.28); }
+
+  .btn-light { background: rgba(249, 246, 240, 0.96); color: var(--ink); box-shadow: 0 12px 34px rgba(20, 24, 38, 0.24); }
+  .btn-light:hover { background: var(--indigo-deep); color: #f9f6f0; transform: translateY(-2px); }
+
+  .btn-outline { background: transparent; color: var(--ink); border-color: rgba(28, 34, 51, 0.35); }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  .btn-outline-light { background: rgba(255,255,255,0.08); color: #f9f6f0; border-color: rgba(249, 246, 240, 0.5); }
+  .btn-outline-light:hover { background: #f9f6f0; color: var(--ink); }
+
+  .btn-tan { background: var(--tan); color: #fff; }
+  .btn-tan:hover { background: var(--tan-deep); transform: translateY(-2px); }
+
+  .btn-wa { background: #25a366; color: #fff; }
+  .btn-wa:hover { background: #1d8551; transform: translateY(-2px); }
+
+  /* ============ HERO ============ */
+  .hero { padding: 96px 0 0; position: relative; }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1.05fr 1.25fr 1.05fr;
+    gap: 2px; min-height: 620px; position: relative;
+  }
+  .hero-cell { position: relative; overflow: hidden; background: var(--cream-deep); }
+  .hero-cell img {
+    width: 100%; height: 100%; object-fit: cover;
+    transform: scale(1.04);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-cell:hover img { transform: scale(1); }
+  .hero-cell::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(20, 24, 38, 0) 35%, rgba(20, 24, 38, 0.62) 100%);
+  }
+
+  .hero-copy {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    z-index: 5; padding: 0 6% 6%;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+    color: #f9f6f0;
+  }
+
+  .hero-copy h1 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(34px, 4.6vw, 62px);
+    line-height: 1.05; letter-spacing: 0.02em;
+    text-transform: uppercase; max-width: 13ch;
+    text-shadow: 0 2px 40px rgba(20, 24, 38, 0.5);
+  }
+
+  .hero-facts {
+    margin-top: 18px; display: flex; flex-wrap: wrap;
+    gap: 10px 22px; max-width: 640px;
+  }
+  .hero-facts span {
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-shadow: 0 1px 18px rgba(20, 24, 38, 0.6);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-facts span::before { content: "—"; color: var(--tan); }
+
+  .hero-actions { display: flex; flex-direction: column; gap: 12px; min-width: 260px; }
+  .hero-actions .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-note {
+    font-size: 12.5px; letter-spacing: 0.04em;
+    color: rgba(249, 246, 240, 0.9);
+    text-shadow: 0 1px 14px rgba(20, 24, 38, 0.7);
+    max-width: 300px;
+  }
+
+  /* ============ MARQUEE ============ */
+  .strip {
+    background: var(--indigo-deep); color: rgba(249, 246, 240, 0.9);
+    overflow: hidden; padding: 15px 0; position: relative; z-index: 2;
+  }
+  .strip-track {
+    display: flex; gap: 56px; white-space: nowrap;
+    animation: marquee 42s linear infinite; width: max-content;
+  }
+  .strip-item {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 56px;
+  }
+  .strip-item::after { content: "✦"; color: var(--tan); font-size: 10px; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ============ SECTIONS ============ */
+  section { position: relative; z-index: 2; }
+  .section-pad { padding: 104px 0; }
+
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 32px; margin-bottom: 52px; flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(30px, 4vw, 52px);
+    letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.06;
+  }
+  .section-head .label { margin-bottom: 14px; }
+  .section-head p.sub { color: rgba(28, 34, 51, 0.65); max-width: 46ch; margin-top: 12px; }
+
+  /* ============ СЕГМЕНТЫ ============ */
+  .segments { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .seg {
+    background: rgba(255,255,255,0.7); border: 1px solid var(--line);
+    padding: 32px 28px; display: flex; flex-direction: column;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .seg:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(28, 34, 51, 0.09); }
+  .seg-ico { color: var(--tan); margin-bottom: 18px; }
+  .seg h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin-bottom: 10px; }
+  .seg p { font-size: 14.5px; color: rgba(28, 34, 51, 0.68); }
+  .seg p b { color: var(--ink); font-weight: 600; }
+
+  /* ============ ВЫГОДА ============ */
+  .profit { background: var(--indigo-deep); color: #f2efe9; }
+  .profit .label { color: var(--tan); }
+  .profit h2 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 46px); letter-spacing: 0.04em;
+    line-height: 1.15; margin: 14px 0 0; max-width: 18ch;
+  }
+  .profit-grid {
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: 64px; align-items: center;
+  }
+  .profit-lead { font-size: 16px; color: rgba(242, 239, 233, 0.75); margin-top: 20px; max-width: 42ch; }
+
+  .calc { border: 1px solid rgba(242, 239, 233, 0.22); background: rgba(255,255,255,0.045); }
+  .calc-head {
+    padding: 18px 26px; border-bottom: 1px solid rgba(242, 239, 233, 0.18);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(242, 239, 233, 0.65);
+  }
+  .calc-rows { padding: 8px 26px 20px; }
+  .calc-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px; padding: 13px 0;
+    border-bottom: 1px solid rgba(242, 239, 233, 0.1);
+    font-size: 14.5px;
+  }
+  .calc-row:last-child { border-bottom: none; }
+  .calc-row span:first-child { color: rgba(242, 239, 233, 0.7); }
+  .calc-row b { font-size: 17px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .calc-row.total { border-top: 1px solid rgba(242, 239, 233, 0.3); margin-top: 6px; padding-top: 18px; }
+  .calc-row.total span:first-child { color: #f2efe9; font-weight: 600; }
+  .calc-row.total b { font-family: var(--font-display); font-size: 30px; color: #fff; font-weight: 400; }
+  .calc-note {
+    padding: 0 26px 22px; font-size: 12.5px;
+    color: rgba(242, 239, 233, 0.5); line-height: 1.5;
+  }
+
+  /* ============ КАТАЛОГ ============ */
+  .cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cat-tab {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    padding: 9px 17px; border: 1px solid rgba(28, 34, 51, 0.25);
+    background: transparent; color: rgba(28, 34, 51, 0.7); cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .cat-tab:hover { border-color: var(--ink); color: var(--ink); }
+  .cat-tab.active { background: var(--indigo-deep); color: var(--cream); border-color: var(--indigo-deep); }
+
+  .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 42px 24px; }
+
+  .product { display: flex; flex-direction: column; }
+  .product[hidden] { display: none; }
+
+  .product-img {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3 / 4; background: var(--cream-deep); margin-bottom: 16px;
+  }
+  .product-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .product:hover .product-img img { transform: scale(1.06); }
+
+  .product-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(249, 246, 240, 0.94);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 7px 12px; color: var(--indigo-deep);
+  }
+
+  .product-name { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
+  .product-type { font-size: 12.5px; color: rgba(28, 34, 51, 0.55); margin-top: 3px; }
+
+  .price-row {
+    display: flex; align-items: flex-end; gap: 20px;
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line);
+  }
+  .price-col { display: flex; flex-direction: column; }
+  .price-col small {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(28, 34, 51, 0.45); margin-bottom: 2px;
+  }
+  .price-opt { font-family: var(--font-display); font-size: 21px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .price-rrc { font-size: 15px; font-weight: 600; color: rgba(28, 34, 51, 0.6); line-height: 1.35; font-variant-numeric: tabular-nums; }
+  .price-margin {
+    margin-left: auto; font-size: 12.5px; font-weight: 700;
+    color: var(--green); white-space: nowrap; text-align: right; line-height: 1.3;
+  }
+  .price-margin small {
+    display: block; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(28, 34, 51, 0.4);
+  }
+
+  .add-btn {
+    margin-top: 14px; width: 100%; padding: 12px;
+    background: transparent; border: 1px solid rgba(28, 34, 51, 0.3);
+    color: var(--ink); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s ease;
+  }
+  .add-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .add-btn.added { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* плавающая панель заявки */
+  .tray {
+    position: fixed; left: 50%; bottom: 24px; z-index: 90;
+    transform: translate(-50%, 140%);
+    display: flex; align-items: center; gap: 18px;
+    background: var(--indigo-deep); color: #f2efe9;
+    padding: 13px 14px 13px 24px;
+    box-shadow: 0 18px 50px rgba(20, 24, 38, 0.35);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: calc(100vw - 32px);
+  }
+  .tray.show { transform: translate(-50%, 0); }
+  .tray-txt { font-size: 13.5px; }
+  .tray-txt b { font-weight: 700; }
+
+  /* ============ УСЛОВИЯ ============ */
+  .ws-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .ws-card {
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.65);
+    padding: 38px 32px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .ws-card:hover { transform: translateY(-4px); box-shadow: 0 22px 44px rgba(28, 34, 51, 0.09); }
+  .ws-icon {
+    width: 50px; height: 50px; border: 1px solid rgba(166, 124, 82, 0.5);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: var(--tan); margin-bottom: 22px;
+  }
+  .ws-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin-bottom: 10px; }
+  .ws-card p { font-size: 14.5px; color: rgba(28, 34, 51, 0.68); }
+  .ws-card p b { color: var(--ink); font-weight: 600; }
+  .ws-card ul { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 7px; }
+  .ws-card li {
+    font-size: 14px; color: rgba(28, 34, 51, 0.68);
+    padding-left: 18px; position: relative;
+  }
+  .ws-card li::before { content: "—"; position: absolute; left: 0; color: var(--tan); }
+
+  /* ============ ПРОИЗВОДСТВО BENTO ============ */
+  .bento { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 210px; gap: 16px; }
+  .bento-cell {
+    position: relative; overflow: hidden; background: #fff;
+    border: 1px solid var(--line); padding: 30px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .bento-cell:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(28, 34, 51, 0.10); }
+  .bento-img { padding: 0; }
+  .bento-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .bento-img::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(20, 24, 38, 0.74));
+  }
+  .bento-img .bento-caption { position: relative; z-index: 2; margin: 30px; text-shadow: 0 1px 16px rgba(20,24,38,0.6); }
+  .bento h3 { font-family: var(--font-display); font-weight: 400; font-size: 21px; margin-bottom: 8px; }
+  .bento p { font-size: 14px; color: rgba(28, 34, 51, 0.65); }
+  .bento-img h3 { color: #f9f6f0; }
+  .bento-img p { color: rgba(249, 246, 240, 0.88); }
+  .bento-dark { background: var(--indigo-deep); border-color: var(--indigo-deep); }
+  .bento-dark h3 { color: #f9f6f0; }
+  .bento-dark p { color: rgba(249, 246, 240, 0.75); }
+  .b-7x2 { grid-column: span 7; grid-row: span 2; }
+  .b-5 { grid-column: span 5; }
+  .b-4 { grid-column: span 4; }
+  .b-8 { grid-column: span 8; }
+
+  /* ============ ДОКУМЕНТЫ ============ */
+  .docs { background: rgba(255,255,255,0.55); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .docs-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
+  .docs-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .doc-item { display: flex; gap: 14px; align-items: flex-start; }
+  .doc-check {
+    flex-shrink: 0; width: 22px; height: 22px; margin-top: 3px;
+    border-radius: 50%; background: rgba(47, 107, 82, 0.12);
+    color: var(--green); display: flex; align-items: center; justify-content: center;
+  }
+  .doc-item h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 3px; }
+  .doc-item p { font-size: 13.5px; color: rgba(28, 34, 51, 0.62); line-height: 1.5; }
+
+  /* ============ ШАГИ ============ */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .step {
+    background: rgba(255,255,255,0.7); border: 1px solid var(--line);
+    padding: 32px 26px 30px; position: relative;
+  }
+  .step-n {
+    font-family: var(--font-display); font-size: 34px;
+    color: var(--tan); line-height: 1; margin-bottom: 16px;
+  }
+  .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: rgba(28, 34, 51, 0.65); }
+  .step-when {
+    margin-top: 14px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--green);
+  }
+
+  /* ============ ОТЗЫВЫ ============ */
+  .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .review {
+    background: rgba(255,255,255,0.7); border: 1px solid var(--line);
+    padding: 34px 30px; display: flex; flex-direction: column;
+  }
+  .review-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 19px; line-height: 1.5; color: rgba(28, 34, 51, 0.88);
+    margin-bottom: 22px; flex-grow: 1;
+  }
+  .review-who { display: flex; align-items: center; gap: 13px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .review-ava {
+    width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%;
+    background: var(--indigo-deep); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; letter-spacing: 0.04em;
+  }
+  .review-who b { display: block; font-size: 14px; font-weight: 700; }
+  .review-who span { font-size: 12.5px; color: rgba(28, 34, 51, 0.55); }
+
+  /* ============ О БРЕНДЕ ============ */
+  .about-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: center; }
+  .about-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .about-wordmark {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6.5vw, 88px);
+    letter-spacing: 0.09em; color: var(--indigo); line-height: 1; margin: 16px 0 26px;
+  }
+  .about-wordmark span { color: var(--tan); }
+  .about-quote {
+    font-family: var(--font-accent); font-style: italic;
+    font-size: 23px; line-height: 1.45; color: rgba(28, 34, 51, 0.85);
+    border-left: 2px solid var(--tan); padding-left: 24px; margin: 30px 0;
+  }
+  .about-sign { font-family: var(--font-accent); font-style: italic; font-size: 20px; color: var(--tan); }
+  .about-sign small {
+    display: block; font-family: var(--font-body); font-style: normal;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.17em;
+    text-transform: uppercase; color: rgba(28, 34, 51, 0.55); margin-top: 4px;
+  }
+  .about p.lead { font-size: 17px; color: rgba(28, 34, 51, 0.8); }
+  .about p.lead b { color: var(--ink); }
+
+  /* ============ ЦИФРЫ ============ */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .stat { padding: 42px 24px; text-align: center; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-family: var(--font-display); font-size: clamp(32px, 3.6vw, 50px); color: var(--indigo-deep); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat-num span { color: var(--tan); }
+  .stat-label {
+    margin-top: 12px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase; color: rgba(28, 34, 51, 0.55);
+  }
+
+  /* ============ FAQ ============ */
+  .faq { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 22px;
+    padding: 24px 0; text-align: left;
+    font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.4;
+  }
+  .faq-q:hover { color: var(--tan); }
+  .faq-ico { flex-shrink: 0; color: var(--tan); transition: transform 0.3s ease; }
+  .faq-q[aria-expanded="true"] .faq-ico { transform: rotate(45deg); }
+  .faq-a { display: none; padding: 0 0 26px; max-width: 68ch; color: rgba(28, 34, 51, 0.72); font-size: 15.5px; }
+  .faq-a.open { display: block; }
+  .faq-a b { color: var(--ink); font-weight: 600; }
+
+  /* ============ ФОРМА ============ */
+  .cta {
+    background: radial-gradient(900px 400px at 20% 0%, rgba(166, 124, 82, 0.18), transparent 60%), var(--indigo-deep);
+    color: #f5f2ec; padding: 104px 0;
+  }
+  .cta-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 72px; align-items: start; }
+  .cta h2 {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(28px, 3.5vw, 44px); line-height: 1.18;
+    letter-spacing: 0.03em; margin: 14px 0 18px;
+  }
+  .cta > .container > .cta-grid > div > p { color: rgba(245, 242, 236, 0.75); }
+  .cta-bullets { list-style: none; margin-top: 26px; display: flex; flex-direction: column; gap: 12px; }
+  .cta-bullets li { font-size: 15px; color: rgba(245, 242, 236, 0.85); padding-left: 24px; position: relative; }
+  .cta-bullets li::before { content: "✦"; position: absolute; left: 0; color: var(--tan); font-size: 11px; top: 4px; }
+
+  .cta-contacts { margin-top: 34px; padding-top: 26px; border-top: 1px solid rgba(245,242,236,0.2); display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .form-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(245, 242, 236, 0.22); padding: 36px 34px; }
+  .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-row label {
+    font-size: 10.5px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(245, 242, 236, 0.6);
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; padding: 14px 16px;
+    font-family: var(--font-body); font-size: 14.5px;
+    border: 1px solid rgba(245, 242, 236, 0.28);
+    background: rgba(245, 242, 236, 0.07);
+    color: #f5f2ec; outline: none;
+    transition: border-color 0.25s ease;
+  }
+  .form-row textarea { resize: vertical; min-height: 68px; }
+  .form-row select option { background: var(--indigo-deep); color: #f5f2ec; }
+  .form-row input::placeholder, .form-row textarea::placeholder { color: rgba(245, 242, 236, 0.4); }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--tan); }
+  .form-row input[aria-invalid="true"] { border-color: #d98b7f; }
+  .form-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-err { font-size: 12px; color: #e8a99e; min-height: 0; }
+  .cta-note { font-size: 12px; color: rgba(245, 242, 236, 0.5); margin-top: 14px; line-height: 1.5; }
+  .form-done { text-align: center; padding: 30px 10px; }
+  .form-done h3 { font-family: var(--font-display); font-weight: 400; font-size: 25px; margin-bottom: 10px; }
+  .form-done p { color: rgba(245, 242, 236, 0.75); font-size: 15px; }
+
+  /* ============ FLOATING MESSENGERS ============ */
+  .float-msg {
+    position: fixed; right: 20px; bottom: 20px; z-index: 95;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .float-msg a {
+    width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; box-shadow: 0 8px 24px rgba(20, 24, 38, 0.28);
+    transition: transform 0.25s ease;
+  }
+  .float-msg a:hover { transform: scale(1.08); }
+  .float-wa { background: #25a366; }
+  .float-tg { background: #2ba0dd; }
+
+  /* ============ FOOTER ============ */
+  footer { padding: 68px 0 34px; position: relative; z-index: 2; }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+    gap: 44px; padding-bottom: 44px; border-bottom: 1px solid var(--line);
+  }
+  .footer-brand p { font-size: 13.5px; color: rgba(28, 34, 51, 0.6); margin-top: 14px; max-width: 290px; }
+  footer h4 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.19em;
+    text-transform: uppercase; color: rgba(28, 34, 51, 0.45); margin-bottom: 16px;
+  }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 9px; }
+  footer ul a, footer ul span { font-size: 14px; color: rgba(28, 34, 51, 0.75); transition: color 0.2s ease; }
+  footer ul a:hover { color: var(--tan); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; gap: 22px;
+    padding-top: 26px; font-size: 12.5px; color: rgba(28, 34, 51, 0.45); flex-wrap: wrap;
+  }
+
+  /* ============ УТИЛИТЫ ============ */
+  .section-pad.pt0 { padding-top: 0; }
+  .btn-block { width: 100%; margin-top: 6px; }
+  .hero-actions .row .btn { flex: 1; }
+  .stack-actions { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Тёмная карточка-приглашение в сетке сегментов */
+  .seg-invite {
+    background: var(--indigo-deep); border-color: var(--indigo-deep);
+    color: #f2efe9; justify-content: center;
+  }
+  .seg-invite h3 { color: #f9f6f0; font-size: 22px; }
+  .seg-invite p { color: rgba(242, 239, 233, 0.75); margin-bottom: 20px; }
+  .seg-invite .btn { align-self: flex-start; }
+
+  /* Заголовок уровня h2 вне блока .section-head */
+  .h2-alt {
+    font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 44px);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    line-height: 1.08; margin: 14px 0 18px;
+  }
+  .lead-muted { color: rgba(28, 34, 51, 0.7); max-width: 42ch; }
+  .mt-28 { margin-top: 28px; }
+
+  /* ============ REVEAL ============ */
+  .js .reveal { opacity: 0; transform: translateY(26px); }
+  .js .reveal.visible {
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js .hero-cell, .js .hero-copy { opacity: 0; animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .js .hero-cell:nth-child(1) { animation-delay: 0.05s; }
+  .js .hero-cell:nth-child(2) { animation-delay: 0.16s; }
+  .js .hero-cell:nth-child(3) { animation-delay: 0.27s; }
+  .js .hero-copy { animation-delay: 0.45s; }
+  @keyframes heroIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .js .reveal { opacity: 1 !important; transform: none !important; }
+    .js .hero-cell, .js .hero-copy { opacity: 1 !important; animation: none !important; }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1100px) {
+    .nav-links { display: none; }
+    .burger { display: flex; }
+    .nav-inner { gap: 16px; }
+    .nav-side { margin-left: auto; }
+  }
+
+  @media (max-width: 1024px) {
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .segments { grid-template-columns: repeat(2, 1fr); }
+    .ws-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .about-grid, .profit-grid, .docs-grid, .cta-grid { grid-template-columns: 1fr; gap: 44px; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .reviews { grid-template-columns: 1fr; }
+    .b-7x2, .b-5, .b-4, .b-8 { grid-column: span 12; grid-row: span 1; }
+    .bento { grid-auto-rows: minmax(200px, auto); }
+    .bento-img { min-height: 300px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-copy h1 { max-width: 100%; }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 20px; }
+    .section-pad { padding: 68px 0; }
+    .nav-phone small { display: none; }
+    .nav-phone { font-size: 14px; }
+
+    .hero { padding-top: 78px; }
+    .hero-grid { grid-template-columns: 1fr; min-height: auto; }
+    .hero-cell:nth-child(1), .hero-cell:nth-child(3) { display: none; }
+    .hero-cell { min-height: 560px; }
+    .hero-copy { padding: 0 20px 28px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .hero-actions { width: 100%; min-width: 0; }
+    .hero-actions .row { flex-direction: column; }
+    .hero-actions .btn { width: 100%; }
+
+    .products, .segments, .steps, .docs-list { grid-template-columns: 1fr; }
+    .form-two { grid-template-columns: 1fr; }
+    .form-box { padding: 28px 22px; }
+    .tray { left: 16px; right: 16px; transform: translateY(140%); max-width: none; }
+    .tray.show { transform: translateY(0); }
+    .float-msg { bottom: 16px; right: 16px; }
+    .float-msg a { width: 46px; height: 46px; }
+    .about-quote { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top">DASMA<span>N</span>N</a>
+    <div class="nav-links">
+      <a href="#segments">Кому подходим</a>
+      <a href="#profit">Ваша выгода</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#terms">Условия опта</a>
+      <a href="#production">Производство</a>
+      <a href="#faq">Вопросы</a>
+    </div>
+    <div class="nav-side">
+      <a class="nav-phone" href="tel:+78003244852" data-phone-link>8 800 324-48-52<small>Пн–Пт 9:00–18:00 МСК</small></a>
+      <a href="#order" class="btn btn-dark btn-sm">Получить прайс</a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a class="mm-link" href="#segments">Кому подходим</a>
+  <a class="mm-link" href="#profit">Ваша выгода</a>
+  <a class="mm-link" href="#catalog">Каталог</a>
+  <a class="mm-link" href="#terms">Условия опта</a>
+  <a class="mm-link" href="#production">Производство</a>
+  <a class="mm-link" href="#docs">Документы</a>
+  <a class="mm-link" href="#about">О бренде</a>
+  <a class="mm-link" href="#faq">Вопросы</a>
+  <div class="mm-foot">
+    <a href="#order" class="btn btn-dark">Получить прайс с РРЦ</a>
+    <a href="https://wa.me/78003244852" class="btn btn-wa" data-wa-link>Написать в WhatsApp</a>
+    <a href="tel:+78003244852" class="btn btn-outline" data-phone-link>Позвонить</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-grid">
+    <div class="hero-cell">
+      <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=900&auto=format&fit=crop" alt="Джинсы DASMANN" fetchpriority="high">
+    </div>
+    <div class="hero-cell">
+      <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1475178626620-a4d074967452?q=80&w=1100&auto=format&fit=crop" alt="Джинсовая одежда DASMANN" fetchpriority="high">
+    </div>
+    <div class="hero-cell">
+      <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1721637286605-ae9be19d681f?q=80&w=900&auto=format&fit=crop" alt="Партия джинсов DASMANN готова к отгрузке">
+    </div>
+  </div>
+  <div class="hero-copy">
+    <div>
+      <h1>Джинсовая одежда от производителя</h1>
+      <div class="hero-facts">
+        <span>Опт от 50 единиц</span>
+        <span>Наценка розницы 150–200%</span>
+        <span>Отгрузка за 3 дня</span>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="#order" class="btn btn-light">Получить прайс с РРЦ</a>
+      <div class="row">
+        <a href="https://wa.me/78003244852" class="btn btn-outline-light" data-wa-link>WhatsApp</a>
+        <a href="https://t.me/dasmann_opt" class="btn btn-outline-light" data-tg-link>Telegram</a>
+      </div>
+      <div class="hero-note">Прайс, лукбук и расчёт маржи — в течение рабочего дня. Образец перед первой партией — бесплатно.</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="strip">
+  <div class="strip-track">
+    <span class="strip-item">Собственное производство в России</span>
+    <span class="strip-item">Опт от 50 единиц · свободный микс</span>
+    <span class="strip-item">Маркировка «Честный знак»</span>
+    <span class="strip-item">Работаем с НДС и ЭДО</span>
+    <span class="strip-item">Деним 8–14 oz</span>
+    <span class="strip-item">Размерный ряд 40–60</span>
+    <span class="strip-item">Собственное производство в России</span>
+    <span class="strip-item">Опт от 50 единиц · свободный микс</span>
+    <span class="strip-item">Маркировка «Честный знак»</span>
+    <span class="strip-item">Работаем с НДС и ЭДО</span>
+    <span class="strip-item">Деним 8–14 oz</span>
+    <span class="strip-item">Размерный ряд 40–60</span>
+  </div>
+</div>
+
+<!-- ============ КОМУ ПОДХОДИМ ============ -->
+<section class="section-pad" id="segments">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">Форматы работы</span>
+        <h2>Кому подходим</h2>
+        <p class="sub">Пять сценариев закупки. Условия, упаковка и документы под каждый — разные.</p>
+      </div>
+      <a href="#order" class="btn btn-outline">Обсудить мой случай</a>
+    </div>
+
+    <div class="segments">
+      <div class="seg reveal">
+        <div class="seg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9z"/><path d="M9 21v-6h6v6"/></svg></div>
+        <h3>Розничным магазинам</h3>
+        <p>Свободный микс моделей, размеров и оттенков внутри партии — не нужно выкупать одну модель коробкой. Подберём <b>ассортиментную матрицу под площадь</b> вашего зала и средний чек региона.</p>
+      </div>
+
+      <div class="seg reveal">
+        <div class="seg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>Селлерам маркетплейсов</h3>
+        <p>Готовим партию под требования Wildberries и Ozon: <b>индивидуальная упаковка, штрихкоды, коды маркировки</b>. Отгружаем на склад площадки или на ваш фулфилмент.</p>
+      </div>
+
+      <div class="seg reveal">
+        <div class="seg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 7h13v10H1z"/><path d="M14 10h4l3 3v4h-7"/><circle cx="5.5" cy="18.5" r="1.9"/><circle cx="18" cy="18.5" r="1.9"/></svg></div>
+        <h3>Дропшиппингу</h3>
+        <p>Отправляем заказы <b>поштучно конечному покупателю</b> от вашего имени — без выкупа склада и заморозки денег в товаре. Даём фотоконтент и описания для карточек.</p>
+      </div>
+
+      <div class="seg reveal">
+        <div class="seg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20.6 8.4l-7-5.2a2 2 0 0 0-2.4 0l-7 5.2A2 2 0 0 0 3.4 10v9.2c0 .6.4 1 1 1h15.2c.6 0 1-.4 1-1V10a2 2 0 0 0-.4-1.6z"/><path d="M8.5 13.5h7M8.5 17h4"/></svg></div>
+        <h3>Своя торговая марка</h3>
+        <p>Отшиваем коллекцию <b>под вашим брендом</b>: ваш лейбл, патч, упаковка и бирки. Работаем по вашим лекалам или адаптируем наши. Партия под СТМ — от 300 единиц.</p>
+      </div>
+
+      <div class="seg reveal">
+        <div class="seg-ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.8 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.8-3.8-9S9.5 5.7 12 3z"/></svg></div>
+        <h3>Экспорт и СНГ</h3>
+        <p>Поставляем в Казахстан, Беларусь, Армению, Киргизию и дальнее зарубежье. Готовим <b>экспортный пакет документов</b>, работаем по предоплате в рублях или валюте контракта.</p>
+      </div>
+
+      <div class="seg seg-invite reveal">
+        <h3>Не нашли свой формат?</h3>
+        <p>Опишите задачу — предложим схему работы и посчитаем экономику под ваш объём.</p>
+        <a href="#order" class="btn btn-tan">Написать нам</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ВЫГОДА ============ -->
+<section class="profit section-pad" id="profit">
+  <div class="container">
+    <div class="profit-grid">
+      <div class="reveal">
+        <span class="label">Экономика партнёра</span>
+        <h2>Сколько вы заработаете</h2>
+        <p class="profit-lead">Мы даём рекомендованную розничную цену по каждой позиции — вы видите свою маржу до того, как оплатите партию. РРЦ рассчитаны по фактическим ценам розницы в регионах, а не «на глаз».</p>
+        <div class="stack-actions">
+          <a href="#order" class="btn btn-tan">Получить полный прайс с РРЦ</a>
+        </div>
+      </div>
+
+      <div class="calc reveal">
+        <div class="calc-head">Пример стартовой партии — 50 единиц</div>
+        <div class="calc-rows">
+          <div class="calc-row"><span>20 × Джинсы Slim Fit</span><b>29 000 ₽</b></div>
+          <div class="calc-row"><span>10 × Джинсовка Workwear</span><b>24 600 ₽</b></div>
+          <div class="calc-row"><span>10 × Рубашка Western</span><b>12 800 ₽</b></div>
+          <div class="calc-row"><span>10 × Юбка Denim Mini</span><b>13 400 ₽</b></div>
+          <div class="calc-row"><span>Закупка партии</span><b>79 800 ₽</b></div>
+          <div class="calc-row"><span>Выручка при продаже по РРЦ</span><b>213 700 ₽</b></div>
+          <div class="calc-row total"><span>Ваша прибыль с партии</span><b>133 900 ₽</b></div>
+        </div>
+        <div class="calc-note">Средняя наценка по этой партии — 167%. Расчёт приведён по ценам из каталога ниже и не учитывает вашу логистику и налоги.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КАТАЛОГ ============ -->
+<section class="section-pad" id="catalog">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">Коллекция сезона</span>
+        <h2>Каталог</h2>
+        <p class="sub">Цены указаны за единицу при заказе от 50 штук. Полный прайс — 40+ моделей.</p>
+      </div>
+      <div class="cat-tabs" role="tablist">
+        <button class="cat-tab active" data-filter="all">Все</button>
+        <button class="cat-tab" data-filter="jeans">Джинсы</button>
+        <button class="cat-tab" data-filter="jackets">Куртки и джинсовки</button>
+        <button class="cat-tab" data-filter="shirts">Рубашки</button>
+        <button class="cat-tab" data-filter="skirts">Юбки</button>
+        <button class="cat-tab" data-filter="knit">Трикотаж</button>
+      </div>
+    </div>
+
+    <div class="products" id="products">
+
+      <article class="product reveal" data-cat="jeans" data-name="Джинсы Slim Fit">
+        <div class="product-img">
+          <span class="product-badge">Бестселлер</span>
+          <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?q=80&w=800&auto=format&fit=crop" alt="Джинсы Slim Fit из стрейч-денима светлой варки" loading="lazy">
+        </div>
+        <div class="product-name">Джинсы Slim Fit</div>
+        <div class="product-type">Стрейч-деним 11 oz · светлая варка · 40–56</div>
+        <div class="price-row">
+          <div class="price-col"><small>Опт</small><span class="price-opt">1 450 ₽</span></div>
+          <div class="price-col"><small>РРЦ</small><span class="price-rrc">3 900 ₽</span></div>
+          <div class="price-margin">+169%<small>наценка</small></div>
+        </div>
+        <button class="add-btn" type="button">Добавить в заявку</button>
+      </article>
+
+      <article class="product reveal" data-cat="jackets" data-name="Куртка Denim Light">
+        <div class="product-img">
+          <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1587155471946-9e8d4d1132fa?q=80&w=800&auto=format&fit=crop" alt="Женская джинсовая куртка Denim Light светлой варки" loading="lazy">
+        </div>
+        <div class="product-name">Куртка Denim Light</div>
+        <div class="product-type">Женская, светлая варка · укороченный крой · S–XXL</div>
+        <div class="price-row">
+          <div class="price-col"><small>Опт</small><span class="price-opt">2 190 ₽</span></div>
+          <div class="price-col"><small>РРЦ</small><span class="price-rrc">5 900 ₽</span></div>
+          <div class="price-margin">+169%<small>наценка</small></div>
+        </div>
+        <button class="add-btn" type="button">Добавить в заявку</button>
+      </article>
+
+      <article class="product reveal" data-cat="shirts" data-name="Рубашка Western">
+        <div class="product-img">
+          <span class="product-badge">Новинка</span>
+          <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1613752978317-afcfd1bba65a?q=80&w=800&auto=format&fit=crop" alt="Рубашка Western из лёгкого денима 8 oz" loading="lazy">
+        </div>
+        <div class="product-name">Рубашка Western</div>
+        <div class="product-type">Лёгкий деним 8 oz · унисекс · S–XXL</div>
+        <div class="price-row">
+          <div class="price-col"><small>Опт</small><span class="price-opt">1 280 ₽</span></div>
+          <div class="price-col"><small>РРЦ</small><span class="price-rrc">3 490 ₽</span></div>
+          <div class="price-margin">+173%<small>наценка</small></div>
+        </div>
+        <button class="add-btn" type="button">Добавить в заявку</button>
+      </article>
+
+      <article class="product reveal" data-cat="skirts" data-name="Юбка Denim Mini">
+        <div class="product-img">
+          <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1762632051685-c84ac57e12c0?q=80&w=800&auto=format&fit=crop" alt="Юбка Denim Mini из стрейч-денима" loading="lazy">
+        </div>
+        <div class="product-name">Юбка Denim Mini</div>
+        <div class="product-type">Стрейч-деним · 5 моделей · 42–56</div>
+        <div class="price-row">
+          <div class="price-col"><small>Опт</small><span class="price-opt">1 340 ₽</span></div>
+          <div class="price-col"><small>РРЦ</small><span class="price-rrc">3 590 ₽</span></div>
+          <div class="price-margin">+168%<small>наценка</small></div>
+        </div>
+        <button class="add-btn" type="button">Добавить в заявку</button>
+      </article>
+
+      <article class="product reveal" data-cat="knit" data-name="Свитер Cotton Rib">
+        <div class="product-img">
+          <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1475180098004-ca77a66827be?q=80&w=800&auto=format&fit=crop" alt="Свитер Cotton Rib из хлопкового трикотажа" loading="lazy">
+        </div>
+        <div class="product-name">Свитер Cotton Rib</div>
+        <div class="product-type">Хлопковый трикотаж · компаньон к дениму · S–XL</div>
+        <div class="price-row">
+          <div class="price-col"><small>Опт</small><span class="price-opt">1 520 ₽</span></div>
+          <div class="price-col"><small>РРЦ</small><span class="price-rrc">3 990 ₽</span></div>
+          <div class="price-margin">+163%<small>наценка</small></div>
+        </div>
+        <button class="add-btn" type="button">Добавить в заявку</button>
+      </article>
+
+      <article class="product reveal" data-cat="jackets" data-name="Джинсовка Workwear">
+        <div class="product-img">
+          <span class="product-badge">Хит сезона</span>
+          <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1527016021513-b09758b777bd?q=80&w=800&auto=format&fit=crop" alt="Джинсовка Workwear из денима 14 oz с усиленными швами" loading="lazy">
+        </div>
+        <div class="product-name">Джинсовка Workwear</div>
+        <div class="product-type">Мужская, деним 14 oz · усиленные швы · 46–60</div>
+        <div class="price-row">
+          <div class="price-col"><small>Опт</small><span class="price-opt">2 460 ₽</span></div>
+          <div class="price-col"><small>РРЦ</small><span class="price-rrc">6 490 ₽</span></div>
+          <div class="price-margin">+164%<small>наценка</small></div>
+        </div>
+        <button class="add-btn" type="button">Добавить в заявку</button>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ УСЛОВИЯ ОПТА ============ -->
+<section class="section-pad pt0" id="terms">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">Прозрачно и без сюрпризов</span>
+        <h2>Условия опта</h2>
+      </div>
+    </div>
+
+    <div class="ws-grid">
+      <div class="ws-card reveal">
+        <div class="ws-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg></div>
+        <h3>Заказ и цены</h3>
+        <ul>
+          <li>Минимальная партия — <b>50 единиц</b></li>
+          <li>Свободный микс моделей, размеров и цветов</li>
+          <li>Все цены в прайсе указаны <b>с НДС 20%</b></li>
+          <li>Бесплатный образец любой модели перед первой партией</li>
+          <li>Накопительная скидка постоянным партнёрам — до 18%</li>
+        </ul>
+      </div>
+
+      <div class="ws-card reveal">
+        <div class="ws-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h14v9H1z"/><path d="M15 11h4l3 3v3h-7"/><circle cx="6" cy="19" r="1.8"/><circle cx="19" cy="19" r="1.8"/></svg></div>
+        <h3>Сроки и доставка</h3>
+        <ul>
+          <li>Со склада — отгрузка <b>за 3 рабочих дня</b></li>
+          <li>Под заказ и СТМ — от 18 рабочих дней</li>
+          <li>Любая транспортная компания по России и СНГ</li>
+          <li>Экспортное оформление в дальнее зарубежье</li>
+          <li>Доставка до ТК по Москве — за наш счёт</li>
+        </ul>
+      </div>
+
+      <div class="ws-card reveal">
+        <div class="ws-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 15.4 6.7 18.1l1-5.8L3.5 8.2l5.9-.9L12 2z"/></svg></div>
+        <h3>Поддержка партнёра</h3>
+        <ul>
+          <li>Персональный менеджер на весь срок работы</li>
+          <li><b>Фотоконтент</b> для витрины, сайта и маркетплейсов</li>
+          <li>Подбор ассортиментной матрицы под ваш формат</li>
+          <li>Замена брака за наш счёт в течение 14 дней</li>
+          <li>Бронь размерной сетки под ваш заказ</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПРОИЗВОДСТВО ============ -->
+<section class="section-pad pt0" id="production">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">Полный цикл в России</span>
+        <h2>Производство</h2>
+      </div>
+      <a href="#order" class="btn btn-outline">Запросить презентацию</a>
+    </div>
+
+    <div class="bento reveal">
+      <div class="bento-cell bento-img b-7x2">
+        <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1673201229733-69d19c5c4a87?q=80&w=1200&auto=format&fit=crop" alt="Промышленная швейная машина в цехе DASMANN" loading="lazy">
+        <div class="bento-caption">
+          <h3>Собственный швейный цех</h3>
+          <p>Раскрой, пошив, варка и финишная обработка — всё под одной крышей. Контроль качества на каждом этапе: брак не покидает цех.</p>
+        </div>
+      </div>
+      <div class="bento-cell b-5">
+        <h3>Деним 8–14 oz</h3>
+        <p>Ткани с фабрик Турции и Узбекистана, с которыми работаем более пяти лет. Классический индиго, чёрный, светлые варки.</p>
+      </div>
+      <div class="bento-cell bento-dark b-5">
+        <h3>Лекала на реальные фигуры</h3>
+        <p>Размерный ряд 40–60, посадка отработана на сотнях примерок. Возвраты по посадке у партнёров — менее 2%.</p>
+      </div>
+      <div class="bento-cell b-4">
+        <h3>Фирменная фурнитура</h3>
+        <p>Литые пуговицы, заклёпки и кожаные патчи. Под СТМ — с вашим логотипом.</p>
+      </div>
+      <div class="bento-cell bento-img b-8">
+        <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1589793463357-5fb813435467?q=80&w=1200&auto=format&fit=crop" alt="Производственный цех DASMANN" loading="lazy">
+        <div class="bento-caption">
+          <h3>40 000 изделий в месяц</h3>
+          <p>Запас мощности под крупные контракты и сезонные пики — не срываем сроки в высокий сезон.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ДОКУМЕНТЫ И МАРКИРОВКА ============ -->
+<section class="docs section-pad" id="docs">
+  <div class="container">
+    <div class="docs-grid">
+      <div class="reveal">
+        <span class="label">Легально и без рисков</span>
+        <h2 class="h2-alt">Документы и маркировка</h2>
+        <p class="lead-muted">Товар приходит к вам готовым к легальной продаже — с кодами маркировки и полным пакетом документов на партию. Вам не нужно ничего доделывать самостоятельно.</p>
+        <a href="#order" class="btn btn-dark mt-28">Запросить образцы документов</a>
+      </div>
+
+      <div class="docs-list reveal">
+        <div class="doc-item">
+          <span class="doc-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div>
+            <h4>Маркировка «Честный знак»</h4>
+            <p>Коды нанесены на изделия и введены в оборот. Партию можно продавать сразу.</p>
+          </div>
+        </div>
+        <div class="doc-item">
+          <span class="doc-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div>
+            <h4>Сертификаты ТР ТС 017/2011</h4>
+            <p>Декларации соответствия на всю продукцию лёгкой промышленности.</p>
+          </div>
+        </div>
+        <div class="doc-item">
+          <span class="doc-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div>
+            <h4>Договор поставки и НДС</h4>
+            <p>Работаем по безналу с НДС 20%. Закрывающие документы — в день отгрузки.</p>
+          </div>
+        </div>
+        <div class="doc-item">
+          <span class="doc-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div>
+            <h4>ЭДО</h4>
+            <p>Диадок и СБИС. Обмен документами без бумаги и курьеров.</p>
+          </div>
+        </div>
+        <div class="doc-item">
+          <span class="doc-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div>
+            <h4>Экспортный пакет</h4>
+            <p>Инвойс, упаковочный лист, сертификат происхождения СТ-1 для стран ЕАЭС.</p>
+          </div>
+        </div>
+        <div class="doc-item">
+          <span class="doc-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></span>
+          <div>
+            <h4>Упаковка под маркетплейсы</h4>
+            <p>Индивидуальный пакет, штрихкоды и стикеры по требованиям WB и Ozon.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КАК ПРОХОДИТ ЗАКАЗ ============ -->
+<section class="section-pad" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">От заявки до отгрузки</span>
+        <h2>Как проходит заказ</h2>
+      </div>
+    </div>
+
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-n">01</div>
+        <h3>Заявка и прайс</h3>
+        <p>Вы оставляете контакт — присылаем полный прайс с РРЦ, лукбук и остатки по складу.</p>
+        <div class="step-when">1 рабочий день</div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <h3>Матрица и образец</h3>
+        <p>Менеджер помогает собрать партию под ваш формат. Бесплатно отправляем образец на выбор.</p>
+        <div class="step-when">2–4 дня</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Договор и оплата</h3>
+        <p>Подписываем договор поставки через ЭДО, выставляем счёт. Работаем по предоплате 50%.</p>
+        <div class="step-when">1 день</div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <h3>Сборка и отгрузка</h3>
+        <p>Собираем, маркируем, упаковываем и передаём в вашу транспортную компанию с документами.</p>
+        <div class="step-when">от 3 дней</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ОТЗЫВЫ ============
+     ⚠ ЗАМЕНИТЬ НА НАСТОЯЩИЕ ОТЗЫВЫ ПАРТНЁРОВ ДО ЗАПУСКА.
+     Сейчас это demo-заготовки для наглядности макета. -->
+<section class="section-pad pt0" id="reviews">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">Партнёры о работе с нами</span>
+        <h2>Отзывы</h2>
+      </div>
+    </div>
+
+    <div class="reviews">
+      <div class="review reveal">
+        <div class="review-quote">«Брали первую партию 50 единиц на пробу, боялись зависнуть с размерами. Ушло почти всё за полтора месяца, доложились ещё дважды за сезон. Отдельное спасибо за фото — не пришлось нанимать съёмку.»</div>
+        <div class="review-who">
+          <span class="review-ava">МД</span>
+          <div><b>Марина Дорошенко</b><span>Магазин «Джинсовый двор», Казань</span></div>
+        </div>
+      </div>
+
+      <div class="review reveal">
+        <div class="review-quote">«Работаем на Wildberries, для нас критична упаковка и маркировка — тут вопросов ноль, приходит готовое к приёмке. Возвраты по размеру ниже, чем по другим поставщикам, лекала действительно нормальные.»</div>
+        <div class="review-who">
+          <span class="review-ava">АК</span>
+          <div><b>Алексей Кузьмин</b><span>Селлер на WB и Ozon, Екатеринбург</span></div>
+        </div>
+      </div>
+
+      <div class="review reveal">
+        <div class="review-quote">«Отшивали у Ирины коллекцию под своей маркой — 400 единиц. Соблюдены и сроки, и качество строчки. Отдельно ценно, что можно приехать в цех и всё посмотреть своими глазами.»</div>
+        <div class="review-who">
+          <span class="review-ava">ГТ</span>
+          <div><b>Гульнара Тлеубаева</b><span>Сеть магазинов, Алматы</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ О БРЕНДЕ ============ -->
+<section class="section-pad about pt0" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <img referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1626784579980-db39c1a13aa9?q=80&w=900&auto=format&fit=crop" alt="Ирина — основательница марки DASMANN" loading="lazy">
+      </div>
+      <div class="reveal">
+        <span class="label">С 2014 года</span>
+        <div class="about-wordmark">DASMA<span>N</span>N</div>
+        <p class="lead"><b>Мы производим деним, на котором магазины зарабатывают.</b> DASMANN — российская марка полного цикла: от раскроя плотного денима до фирменной фурнитуры. Мы не гонимся за сезонными трендами и делаем базу, которая продаётся круглый год и возвращается в заказ повторно.</p>
+        <div class="about-quote">«Я начинала с одной швейной машинки и рулона денима. Сегодня DASMANN носят в восьми странах — но каждую модель я по-прежнему примеряю первой.»</div>
+        <div class="about-sign">Ирина<small>Основательница марки DASMANN</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЦИФРЫ ============ -->
+<section class="container reveal">
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">лет производства</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">500<span>+</span></div>
+      <div class="stat-label">оптовых партнёров</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">40 000</div>
+      <div class="stat-label">изделий в месяц</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">стран поставок</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section-pad" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="label">Отвечаем честно</span>
+        <h2>Частые вопросы</h2>
+      </div>
+    </div>
+
+    <div class="faq reveal">
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Какой минимальный заказ и можно ли смешивать модели?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">Минимальная партия — <b>50 единиц</b>, и это может быть любой микс: разные модели, размеры и оттенки в одной поставке. Выкупать модель целой коробкой не нужно. Для заказа под собственной торговой маркой минимум выше — от 300 единиц, потому что под него отдельно закупается фурнитура и лейблы.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Цены указаны с НДС или без?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">Все цены на сайте и в прайсе указаны <b>с НДС 20%</b>. Работаем по безналичному расчёту, договор поставки и закрывающие документы передаём через ЭДО — Диадок или СБИС. Если вы работаете без НДС, менеджер пересчитает предложение под вашу систему налогообложения.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Товар есть в наличии или отшивается под заказ?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">Базовые модели — джинсы, джинсовки, рубашки и юбки — держим <b>на складе в полной размерной сетке</b>, отгрузка за 3 рабочих дня. Актуальные остатки менеджер присылает вместе с прайсом. Позиции под заказ и коллекции под СТМ отшиваем от 18 рабочих дней.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Что делать, если товар не продастся?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">Мы не берём товар обратно, но снижаем этот риск до сделки: минимальная партия всего 50 единиц, микс свободный, а менеджер помогает собрать матрицу под ваш формат и регион, а не продать вам побольше. Перед первой закупкой отправляем <b>бесплатный образец</b> — вы вживую оцениваете ткань, посадку и строчку. Брак и производственные дефекты меняем за свой счёт в течение 14 дней с момента приёмки.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Вы наносите маркировку «Честный знак»?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">Да. Все изделия приходят <b>с нанесёнными кодами маркировки, введёнными в оборот</b>, и с декларациями соответствия ТР ТС 017/2011. Партию можно легально продавать сразу после приёмки — ничего доделывать не нужно.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Как отгружаете в регионы и за рубеж?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">По России и СНГ работаем с любой транспортной компанией на ваш выбор — доставку до терминала ТК по Москве берём на себя. В Казахстан, Беларусь, Армению и Киргизию поставляем регулярно и готовим <b>полный экспортный пакет</b>: инвойс, упаковочный лист, сертификат происхождения СТ-1. По дальнему зарубежью условия и валюту расчёта обсуждаем индивидуально.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" type="button" aria-expanded="false">
+          Можно отшить коллекцию под моей маркой?
+          <span class="faq-ico"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="faq-a">Да, это отдельное направление. Работаем <b>по вашим лекалам или адаптируем наши</b> под ваши требования: ваш лейбл, кожаный патч, фирменная фурнитура, бирки и упаковка. Минимальная партия под СТМ — 300 единиц, срок производства — от 18 рабочих дней. Перед запуском отшиваем и согласовываем образец.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ФОРМА ============ -->
+<section class="cta" id="order">
+  <div class="container">
+    <div class="cta-grid">
+      <div class="reveal">
+        <span class="label">Начнём сотрудничество</span>
+        <h2>Получите прайс с РРЦ и расчёт маржи под ваш формат</h2>
+        <p>Оставьте контакт — в течение рабочего дня менеджер пришлёт актуальный прайс, лукбук новой коллекции, остатки по складу и условия для вашего региона.</p>
+        <ul class="cta-bullets">
+          <li>Полный прайс на 40+ моделей с рекомендованной розничной ценой</li>
+          <li>Бесплатный образец любой модели перед первой партией</li>
+          <li>Подбор ассортиментной матрицы под вашу площадь и регион</li>
+          <li>Никакого спама и звонков без спроса — только по делу</li>
+        </ul>
+        <div class="cta-contacts">
+          <a href="https://wa.me/78003244852" class="btn btn-wa btn-sm" data-wa-link>WhatsApp</a>
+          <a href="https://t.me/dasmann_opt" class="btn btn-outline-light btn-sm" data-tg-link>Telegram</a>
+          <a href="tel:+78003244852" class="btn btn-outline-light btn-sm" data-phone-link>Позвонить</a>
+        </div>
+      </div>
+
+      <div class="form-box reveal">
+        <form id="orderForm" method="post" novalidate>
+          <div class="form-row">
+            <label for="f-name">Как к вам обращаться *</label>
+            <input type="text" id="f-name" name="name" placeholder="Имя" required maxlength="80" autocomplete="name">
+          </div>
+
+          <div class="form-two">
+            <div class="form-row">
+              <label for="f-phone">Телефон или мессенджер *</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="+7 (___) ___-__-__" required maxlength="30" autocomplete="tel">
+            </div>
+            <div class="form-row">
+              <label for="f-city">Город</label>
+              <input type="text" id="f-city" name="city" placeholder="Например, Казань" maxlength="60" autocomplete="address-level2">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="f-type">Чем вы занимаетесь</label>
+            <select id="f-type" name="type">
+              <option value="Розничный магазин">Розничный магазин</option>
+              <option value="Маркетплейсы (WB, Ozon)">Маркетплейсы — WB, Ozon</option>
+              <option value="Дропшиппинг">Дропшиппинг</option>
+              <option value="Своя торговая марка (СТМ)">Своя торговая марка (СТМ)</option>
+              <option value="Оптовая компания">Оптовая компания</option>
+              <option value="Экспорт / другая страна">Экспорт, другая страна</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="f-comment">Что интересует</label>
+            <textarea id="f-comment" name="comment" placeholder="Модели, объём, сроки — если уже знаете" maxlength="600"></textarea>
+          </div>
+
+          <div class="form-err" id="formErr" role="alert"></div>
+
+          <button type="submit" class="btn btn-tan btn-block">Получить прайс с РРЦ</button>
+          <div class="cta-note">Нажимая кнопку, вы соглашаетесь с политикой обработки персональных данных. Мы не передаём контакты третьим лицам.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПЛАВАЮЩАЯ ПАНЕЛЬ ЗАЯВКИ ============ -->
+<div class="tray" id="tray">
+  <span class="tray-txt">В заявке: <b id="trayCount">0</b></span>
+  <a href="#order" class="btn btn-tan btn-sm" id="trayGo">Оформить заявку</a>
+</div>
+
+<!-- ============ МЕССЕНДЖЕРЫ ============ -->
+<div class="float-msg">
+  <a href="https://wa.me/78003244852" data-wa-link class="float-wa" aria-label="Написать в WhatsApp" title="Написать в WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5v-.5c-.1-.2-.7-1.5-.9-2.1-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+  </a>
+  <a href="https://t.me/dasmann_opt" data-tg-link class="float-tg" aria-label="Написать в Telegram" title="Написать в Telegram">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 6.9l-1.5 7.2c-.1.5-.4.6-.8.4l-2.3-1.7-1.1 1c-.1.2-.2.3-.5.3l.2-2.5 4.5-4.1c.2-.2 0-.3-.3-.1L9.2 13l-2.4-.8c-.5-.2-.5-.5.1-.8l9.3-3.6c.4-.1.8.1.7.6z"/></svg>
+  </a>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#top">DASMA<span>N</span>N</a>
+        <p>Джинсовая одежда собственного производства. Оптовые поставки по России, СНГ и на экспорт с 2014 года.</p>
+      </div>
+      <div>
+        <h4>Каталог</h4>
+        <ul>
+          <li><a href="#catalog">Джинсы</a></li>
+          <li><a href="#catalog">Куртки и джинсовки</a></li>
+          <li><a href="#catalog">Рубашки</a></li>
+          <li><a href="#catalog">Юбки</a></li>
+          <li><a href="#catalog">Трикотаж</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Оптовикам</h4>
+        <ul>
+          <li><a href="#terms">Условия опта</a></li>
+          <li><a href="#profit">Расчёт маржи</a></li>
+          <li><a href="#docs">Документы и маркировка</a></li>
+          <li><a href="#how">Как проходит заказ</a></li>
+          <li><a href="#faq">Частые вопросы</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+78003244852" data-phone-link data-phone-text>8 800 324-48-52</a></li>
+          <li><a href="https://wa.me/78003244852" data-wa-link>WhatsApp</a> · <a href="https://t.me/dasmann_opt" data-tg-link>Telegram</a></li>
+          <li><span>Шоурум и цех: Москва,<br>Дербеневская наб., 7с2</span></li>
+          <li><span>Пн–Пт 9:00–18:00 МСК</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2014–2026 DASMANN. Все права защищены.</span>
+      <span>Сделано с любовью к дениму</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   CONFIG — ЗАМЕНИТЕ НА РЕАЛЬНЫЕ ДАННЫЕ ПЕРЕД ЗАПУСКОМ
+   ═══════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  phoneText:  '8 800 324-48-52',       // как телефон показывается на сайте
+  phoneRaw:   '+78003244852',          // для кнопки «позвонить»
+  whatsapp:   '78003244852',           // номер WhatsApp, только цифры
+  telegram:   'dasmann_opt',           // username в Telegram, без @
+  email:      'opt@dasmann.ru',
+
+  // Куда отправлять заявки. Пока пусто — форма открывает WhatsApp
+  // с уже заполненным текстом заявки (работает сразу, без настройки).
+  // Чтобы заявки падали на почту: зарегистрируйтесь на formspree.io,
+  // создайте форму и вставьте сюда её адрес вида
+  // 'https://formspree.io/f/xxxxxxxx'
+  formEndpoint: '',
+
+  // Демо-режим для портфолио: форма показывает подтверждение прямо на странице,
+  // никуда не уходит и ничего не отправляет. Посетитель видит полностью рабочий
+  // сценарий. Чтобы сайт начал реально принимать заявки — поставьте false
+  // и заполните formEndpoint выше.
+  demoMode: true
+};
+/* ═══════════════════════════════════════════════════════════════ */
+
+document.documentElement.classList.add('js');
+
+/* ---------- контакты подставляются из CONFIG ---------- */
+const waBase = 'https://wa.me/' + CONFIG.whatsapp;
+document.querySelectorAll('[data-wa-link]').forEach(a => { a.href = waBase; a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+document.querySelectorAll('[data-tg-link]').forEach(a => { a.href = 'https://t.me/' + CONFIG.telegram; a.target = '_blank'; a.rel = 'noopener noreferrer'; });
+document.querySelectorAll('[data-phone-link]').forEach(a => { a.href = 'tel:' + CONFIG.phoneRaw; });
+document.querySelectorAll('[data-email-link]').forEach(a => { a.href = 'mailto:' + CONFIG.email; });
+document.querySelectorAll('[data-phone-text]').forEach(a => { a.textContent = CONFIG.phoneText; });
+document.querySelectorAll('[data-email-text]').forEach(a => { a.textContent = CONFIG.email; });
+const navPhone = document.querySelector('.nav-phone');
+if (navPhone) navPhone.childNodes[0].nodeValue = CONFIG.phoneText;
+
+/* ---------- шапка ---------- */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+/* ---------- мобильное меню ---------- */
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+function setMenu(open) {
+  mobileMenu.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+burger.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('open')));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false); });
+
+/* ---------- появление секций ---------- */
+const reveals = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px' });
+  reveals.forEach(el => io.observe(el));
+} else {
+  reveals.forEach(el => el.classList.add('visible'));
+}
+document.querySelectorAll('.products .product').forEach((el, i) => {
+  el.style.transitionDelay = (i % 3) * 0.09 + 's';
+});
+
+/* ---------- фильтр каталога ---------- */
+const tabs = document.querySelectorAll('.cat-tab');
+const productEls = document.querySelectorAll('#products .product');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const f = tab.dataset.filter;
+    productEls.forEach(p => {
+      const show = f === 'all' || p.dataset.cat === f;
+      p.hidden = !show;
+      if (show) { p.classList.add('visible'); p.style.transitionDelay = '0s'; }
+    });
+  });
+});
+
+/* ---------- сбор заявки ---------- */
+const picked = new Set();
+const tray = document.getElementById('tray');
+const trayCount = document.getElementById('trayCount');
+
+function refreshTray() {
+  trayCount.textContent = picked.size;
+  tray.classList.toggle('show', picked.size > 0);
+}
+
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const name = btn.closest('.product').dataset.name;
+    if (picked.has(name)) {
+      picked.delete(name);
+      btn.classList.remove('added');
+      btn.textContent = 'Добавить в заявку';
+    } else {
+      picked.add(name);
+      btn.classList.add('added');
+      btn.textContent = 'В заявке ✓';
+    }
+    refreshTray();
+    syncComment();
+  });
+});
+
+const commentField = document.getElementById('f-comment');
+let commentTouched = false;
+commentField.addEventListener('input', () => { commentTouched = true; });
+
+function syncComment() {
+  if (commentTouched) return;
+  commentField.value = picked.size ? 'Интересуют модели: ' + [...picked].join(', ') : '';
+}
+
+document.getElementById('trayGo').addEventListener('click', () => {
+  setTimeout(() => document.getElementById('f-name').focus(), 700);
+});
+
+/* ---------- FAQ ---------- */
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const open = q.getAttribute('aria-expanded') === 'true';
+    q.setAttribute('aria-expanded', String(!open));
+    q.nextElementSibling.classList.toggle('open', !open);
+  });
+});
+
+/* ---------- форма ---------- */
+const form = document.getElementById('orderForm');
+const formErr = document.getElementById('formErr');
+
+// Поля берём по id: form.name у формы — это её атрибут name, а не поле ввода.
+const fName    = document.getElementById('f-name');
+const fPhone   = document.getElementById('f-phone');
+const fCity    = document.getElementById('f-city');
+const fType    = document.getElementById('f-type');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  formErr.textContent = '';
+
+  const name  = fName.value.trim();
+  const phone = fPhone.value.trim();
+
+  [fName, fPhone].forEach(f => f.removeAttribute('aria-invalid'));
+
+  if (name.length < 2) {
+    fName.setAttribute('aria-invalid', 'true');
+    formErr.textContent = 'Напишите, как к вам обращаться.';
+    fName.focus();
+    return;
+  }
+  if (phone.replace(/\D/g, '').length < 10) {
+    fPhone.setAttribute('aria-invalid', 'true');
+    formErr.textContent = 'Проверьте телефон — нужно не меньше 10 цифр.';
+    fPhone.focus();
+    return;
+  }
+
+  const data = {
+    name,
+    phone,
+    city: fCity.value.trim() || 'не указан',
+    type: fType.value,
+    comment: commentField.value.trim() || 'без комментария'
+  };
+
+  const btn = form.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем…';
+
+  if (CONFIG.formEndpoint) {
+    try {
+      const res = await fetch(CONFIG.formEndpoint, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('bad status');
+      showDone();
+      return;
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Получить прайс с РРЦ';
+      formErr.textContent = 'Не получилось отправить. Напишите нам в WhatsApp — ответим быстрее.';
+      return;
+    }
+  }
+
+  // Демо-режим: показываем подтверждение прямо на странице, ничего не отправляя
+  if (CONFIG.demoMode) { showDone(); return; }
+
+  // Иначе — открываем WhatsApp с готовым текстом заявки
+  const text =
+    'Заявка с сайта DASMANN\n\n' +
+    'Имя: ' + data.name + '\n' +
+    'Телефон: ' + data.phone + '\n' +
+    'Город: ' + data.city + '\n' +
+    'Направление: ' + data.type + '\n' +
+    'Комментарий: ' + data.comment;
+
+  window.open(waBase + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  showDone();
+});
+
+function showDone() {
+  document.querySelector('.form-box').innerHTML =
+    '<div class="form-done">' +
+      '<h3>Заявка принята</h3>' +
+      '<p>Менеджер свяжется с вами в течение рабочего дня и пришлёт прайс с РРЦ, лукбук и остатки по складу.</p>' +
+    '</div>';
+}
+
+/* ---------- Яндекс Метрика ----------
+   Вставьте сюда код счётчика из личного кабинета Яндекс Метрики,
+   чтобы видеть источники трафика и отслеживать заявки.
+   ---------------------------------------------------------------- */
+</script>
+
+</body>
+</html>
